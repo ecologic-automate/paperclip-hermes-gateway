@@ -310,6 +310,22 @@ The fork is minimal:
 | Exit code 1 (model not found) | Adapter hardcoded `DEFAULT_MODEL = "anthropic/claude-sonnet-4"` | Changed fallback to `undefined` — hermes uses its own config |
 | hermes can't reach paperclip API | Prompt template used `localhost:3100` (co-located assumption) | Set `paperclipApiUrl: "http://<paperclip-tailnet-ip>:3100/api"` in adapterConfig |
 
+## Optional: Paperclip skill for hermes
+
+`skills/paperclip/` contains a Hermes skill that teaches hermes how to
+call the Paperclip API (list/create/comment on issues, wake the agent,
+etc.). Useful for controlling your Paperclip company from WhatsApp /
+Telegram / CLI via hermes.
+
+Install:
+
+```bash
+cp -r skills/paperclip ~/.hermes/skills/
+```
+
+Then send hermes a message like *"check paperclip"* or *"what's the
+agent working on?"* — it'll load the skill and call the API directly.
+
 ## Updating
 
 When Nous releases a new `hermes-paperclip-adapter`:
