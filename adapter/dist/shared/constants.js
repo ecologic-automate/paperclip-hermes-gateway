@@ -11,8 +11,8 @@ export const HERMES_CLI = "hermes";
 export const DEFAULT_TIMEOUT_SEC = 1800;
 /** Grace period after SIGTERM before SIGKILL (seconds). */
 export const DEFAULT_GRACE_SEC = 10;
-/** Default model to use if none specified. */
-export const DEFAULT_MODEL = "anthropic/claude-sonnet-4";
+/** Default model — null means let hermes use its own ~/.hermes/config.yaml. */
+export const DEFAULT_MODEL = null;
 /**
  * Valid --provider choices for the hermes CLI.
  * Must stay in sync with `hermes chat --help`.

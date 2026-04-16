@@ -38,14 +38,17 @@ Research with 30+ native tools, persistent memory, sessions, skills, and MCP.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| remoteRunnerUrl | string | URL of the runner's /run endpoint, e.g. \`https://hermes-box.tailnet.ts.net/run\` |
+| remoteRunnerUrl | string | URL of the runner's /run endpoint, e.g. \`http://100.x.x.x:8788/run\` |
 | runnerAuthToken | string | Bearer token; must match the runner's RUNNER_AUTH_TOKEN env var |
+| paperclipApiUrl | string | How hermes reaches Paperclip's API from the runner box, e.g. \`http://100.x.x.x:3100/api\`. Required when hermes runs on a different machine. |
+
+> **Auth**: Paperclip automatically provisions a short-lived JWT for each run when \`supportsLocalAgentJwt\` is enabled (default). The adapter injects it into the prompt template as \`{{paperclipApiKey}}\` — no manual API key management needed.
 
 ## Core Configuration
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| model | string | (Hermes configured default) | Optional explicit model in provider/model format. Leave blank to use Hermes's configured default model. |
+| model | string | (hermes default) | Optional explicit model. Leave blank to use Hermes's \`~/.hermes/config.yaml\` default. |
 | provider | string | (auto) | API provider: auto, openrouter, nous, openai-codex, zai, kimi-coding, minimax, minimax-cn. Usually not needed — Hermes auto-detects from model name. |
 | timeoutSec | number | 300 | Execution timeout in seconds |
 | graceSec | number | 10 | Grace period after SIGTERM before SIGKILL |
@@ -85,5 +88,6 @@ Research with 30+ native tools, persistent memory, sessions, skills, and MCP.
 - \`{{taskTitle}}\` — Task title (if assigned)
 - \`{{taskBody}}\` — Task description (if assigned)
 - \`{{projectName}}\` — Project name (if scoped to a project)
+- \`{{paperclipApiKey}}\` — Short-lived JWT for authenticating to the Paperclip API (auto-provisioned per run)
 `;
 //# sourceMappingURL=index.js.map
