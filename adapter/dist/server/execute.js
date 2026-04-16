@@ -17,6 +17,7 @@
  *   --yolo             bypass dangerous-command approval prompts (agents have no TTY)
  *   --source           session source tag for filtering
  */
+import { readFileSync } from "node:fs";
 import { buildPaperclipEnv, renderTemplate, ensureAbsoluteDirectory, } from "@paperclipai/adapter-utils/server-utils";
 import { dispatchRemote } from "./dispatch-remote.js";
 import { HERMES_CLI, DEFAULT_TIMEOUT_SEC, DEFAULT_GRACE_SEC, } from "../shared/constants.js";
@@ -185,7 +186,23 @@ function buildPrompt(ctx, config) {
     // {{#commentId}}...{{/commentId}} — include if comment exists
     rendered = rendered.replace(/\{\{#commentId\}\}([\s\S]*?)\{\{\/commentId\}\}/g, commentId ? "$1" : "");
     // Replace remaining {{variable}} placeholders
-    return renderTemplate(rendered, vars);
+    const workflowPrompt = renderTemplate(rendered, vars);
+    // Prepend agent-specific instructions file content, if configured.
+    // Matches the pattern used by claude_local, gemini_local, etc. — agents
+    // can set instructionsFilePath in adapterConfig to load AGENTS.md on each wake.
+    const instructionsFilePath = cfgString(config.instructionsFilePath);
+    if (instructionsFilePath) {
+        try {
+            const agentInstructions = readFileSync(instructionsFilePath, "utf-8").trim();
+            if (agentInstructions) {
+                return `${agentInstructions}\n\n---\n\n${workflowPrompt}`;
+            }
+        }
+        catch {
+            // Non-fatal — if the file is missing or unreadable, fall back to workflow prompt
+        }
+    }
+    return workflowPrompt;
 }
 // ---------------------------------------------------------------------------
 // Output parsing
