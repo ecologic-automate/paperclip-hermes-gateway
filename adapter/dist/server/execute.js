@@ -96,6 +96,11 @@ Title: {{taskTitle}}
    \`paperclip_api("/issues/{{taskId}}/comments", "POST", {"body": "<your clean markdown result>"})\`
    The comment must be clean, well-formatted markdown \u2014 the FINAL deliverable only.
    Do NOT include code blocks from tool calls, debugging output, or intermediate steps.
+
+   CRITICAL: If your deliverable is a file, document, brief, plan, or any artifact,
+   post the FULL CONTENT inline in the comment body. Do NOT just say "file saved at
+   ~/workspace/foo.md" or reference a local file path. Other agents run on different
+   machines and cannot access your local filesystem. The comment IS the handoff.
 3. Only AFTER the comment is posted, mark the issue as completed:
    \`paperclip_api("/issues/{{taskId}}", "PATCH", {"status": "done"})\`
 4. If this issue has a parent (check the issue body or comments for references like TRA-XX), post a brief notification on the parent issue:
