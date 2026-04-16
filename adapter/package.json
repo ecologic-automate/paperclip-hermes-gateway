@@ -1,0 +1,22 @@
+{
+  "name": "hermes-remote-paperclip-adapter",
+  "version": "0.1.1",
+  "description": "Paperclip adapter that dispatches Hermes Agent runs to a remote runner over HTTP/SSE. Fork of hermes-paperclip-adapter for split-machine deployments.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js",
+    "./server": "./dist/server/index.js",
+    "./ui": "./dist/ui/index.js",
+    "./cli": "./dist/cli/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@paperclipai/adapter-utils": "^2026.325.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

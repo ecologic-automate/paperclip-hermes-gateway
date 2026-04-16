@@ -1,0 +1,9 @@
+[project]
+name = "paperclip-hermes-gateway-runner"
+version = "0.1.0"
+description = "Local runner that spawns hermes for the paperclip-hermes-gateway"
+requires-python = ">=3.10"
+dependencies = ["aiohttp>=3.9"]
+
+[project.scripts]
+paperclip-hermes-runner = "server:main"
