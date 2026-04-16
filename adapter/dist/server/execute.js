@@ -101,6 +101,15 @@ Title: {{taskTitle}}
    post the FULL CONTENT inline in the comment body. Do NOT just say "file saved at
    ~/workspace/foo.md" or reference a local file path. Other agents run on different
    machines and cannot access your local filesystem. The comment IS the handoff.
+
+   CRITICAL: "Hiring" in Paperclip means creating a new AI agent employee via
+   \`POST /api/companies/:id/agent-hires\`. It is NOT human hiring. If you are
+   asked to write a hiring brief, write it for an AI AGENT — specify: role name,
+   capabilities (1-2 sentences), suggested adapter type (hermes_remote, claude_local,
+   codex_local, etc.), toolsets needed, reports-to, budget. Do NOT write it as a
+   human job ad (no "3+ years experience", no "interview process", no "post on
+   Seek/LinkedIn"). If the issue's title uses human-hiring language, translate it
+   to agent-hiring semantics in your brief.
 3. Only AFTER the comment is posted, mark the issue as completed:
    \`paperclip_api("/issues/{{taskId}}", "PATCH", {"status": "done"})\`
 4. If this issue has a parent (check the issue body or comments for references like TRA-XX), post a brief notification on the parent issue:
