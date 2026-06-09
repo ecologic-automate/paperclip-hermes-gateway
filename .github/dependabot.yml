@@ -1,0 +1,13 @@
+version: 2
+# Added by the security agent (2026-06-09).
+updates:
+  - package-ecosystem: "npm"
+    directory: "/adapter"
+    schedule: { interval: "weekly", day: "monday" }
+    open-pull-requests-limit: 5
+    groups:
+      npm-minor-patch: { update-types: ["minor", "patch"] }
+  - package-ecosystem: "pip"
+    directory: "/runner"
+    schedule: { interval: "weekly", day: "monday" }
+    open-pull-requests-limit: 3
