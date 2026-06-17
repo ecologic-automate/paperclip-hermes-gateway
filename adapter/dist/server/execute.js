@@ -209,8 +209,11 @@ function buildPrompt(ctx, config) {
 // ---------------------------------------------------------------------------
 /** Regex to extract session ID from Hermes quiet-mode output: "session_id: <id>" */
 const SESSION_ID_REGEX = /^session_id:\s*(\S+)/m;
-/** Regex for legacy session output format */
-const SESSION_ID_REGEX_LEGACY = /session[_ ](?:id|saved)[:\s]+([a-zA-Z0-9_-]+)/i;
+/** Regex for legacy session output format. Anchored to line start (^ + /m) like
+ * SESSION_ID_REGEX above, so it only matches a real "session id:/saved:" line and never
+ * captures mid-line text such as "from" in Hermes's own error "Use a session ID from a
+ * previous CLI run" (which would be replayed as `--resume from` and break later runs). */
+const SESSION_ID_REGEX_LEGACY = /^session[_ ](?:id|saved)[:\s]+([a-zA-Z0-9_-]+)/im;
 /** Regex to extract token usage from Hermes output. */
 const TOKEN_USAGE_REGEX = /tokens?[:\s]+(\d+)\s*(?:input|in)\b.*?(\d+)\s*(?:output|out)\b/i;
 /** Regex to extract cost from Hermes output. */
