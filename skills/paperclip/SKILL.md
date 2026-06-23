@@ -180,7 +180,7 @@ unassigned = [i for i in backlog if not i.get("assigneeAgentId")]
 ## Install
 
 This skill lives in the
-[paperclip-hermes-gateway](https://github.com/ecologic-automate/paperclip-hermes-gateway)
+[paperclip-hermes-gateway](http://100.64.0.18:3011/ecologic/paperclip-hermes-gateway)
 repo. Copy into hermes's skills dir:
 
 ```bash
